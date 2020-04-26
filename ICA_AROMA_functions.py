@@ -33,6 +33,7 @@ def runICA(fslDir, inFile, outDir, melDirIn, mask, dim, TR):
     # Import needed modules
     import os
     import subprocess
+    from shutil import copytree
 
     # Define the 'new' MELODIC directory and predefine some associated files
     melDir = os.path.join(outDir, 'melodic.ica')
@@ -52,7 +53,7 @@ def runICA(fslDir, inFile, outDir, melDirIn, mask, dim, TR):
         # Otherwise create specific links and
         # run mixture modeling to obtain thresholded maps.
         if os.path.isdir(os.path.join(melDirIn, 'stats')):
-            os.symlink(melDirIn, melDir)
+            copytree(melDirIn, melDir) 	# os.symlink(melDirIn, melDir)
         else:
             print('  - The MELODIC directory does not contain the required \'stats\' folder. Mixture modeling on the Z-statistical maps will be run.')
 
